@@ -79,9 +79,8 @@ def test__collect_gitmoji(
     monkeypatch.setattr(dev, "SOURCE_ROOT", tmp_path)
 
     expected = tmp_path / "gitmoji_conventional_commit/gitmojis.yaml"
-    expected.parent.mkdir(
-        parents=True, exist_ok=True
-    )  # Ensure the parent directory exists
+    # Ensure the parent directory exists otherwise write will fail
+    expected.parent.mkdir(parents=True, exist_ok=True)
 
     dev.collect_gitmoji()
 

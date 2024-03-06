@@ -33,4 +33,14 @@ Add the following hook to your `.pre-commit-config.yaml`:
 
 ## Available Hooks
 
-See [.pre-commit-hooks.yaml](.pre-commit-hooks.yaml).
+### `gitmoji-conventional-commit` ([source](bills_hooks/gitmoji_conventional_commit/hook.py))
+
+> [!WARNING]
+>
+> This is still in development and does not validate the commit message against the conventional commit framework yet.
+
+This hook checks that your commit messages are (optionally) prefixed with a [gitmoji](https://gitmoji.dev/) and follow the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0/) format.
+
+Inspired by:
+
+- https://github.com/compilerla/conventional-pre-commit
