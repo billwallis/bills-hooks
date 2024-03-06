@@ -4,8 +4,8 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.poetry]
-name = "python-template"
-version = "0.0.0"
+name = "bills-hooks"
+version = "0.0.1"
 description = ""
 authors = ["Bilbottom"]
 readme = "README.md"

@@ -12,6 +12,9 @@ import bills_hooks.gitmoji_conventional_commit._dev as dev  # noqa
 
 @pytest.fixture
 def gitmojis_json() -> str:
+    """
+    A JSON object corresponding to the gitmojis.
+    """
     return textwrap.dedent(
         """
         {
@@ -35,6 +38,9 @@ def gitmojis_json() -> str:
 
 @pytest.fixture
 def gitmojis_yaml() -> str:
+    """
+    A YAML object corresponding to the gitmojis.
+    """
     return textwrap.dedent(
         """
         $schema: https://gitmoji.dev/api/gitmojis/schema

@@ -26,11 +26,11 @@ Add the following hook to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/Bilbottom/bills-hooks
-  rev: <ref>
+  rev: v0.0.1
   hooks:
-    - id: <hook-id>
+    - id: gitmoji-conventional-commit
 ```
 
 ## Available Hooks
 
-###
+See [.pre-commit-hooks.yaml](.pre-commit-hooks.yaml).

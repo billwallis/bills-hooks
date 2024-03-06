@@ -26,7 +26,6 @@ def test__is_valid_commit_message(message: str, expected: bool):
     """
     Test the ``is_valid_commit_message`` function.
     """
-    print(message[0])
     assert hook.is_valid_commit_message(message) == expected
 
 
