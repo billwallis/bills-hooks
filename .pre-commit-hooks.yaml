@@ -1,0 +1,14 @@
+---
+- id: gitmoji-conventional-commit
+  name: Gitmoji conventional commit message
+  description: >
+    Validate that commit messages follow conventional commits, with an
+    optional gitmoji at the start of the header.
+
+    - https://www.conventionalcommits.org/en/v1.0.0/
+    - https://gitmoji.dev/
+  entry: gitmoji-conventional-commit
+  language: python
+  pass_filenames: false
+  always_run: true
+  stages: ["commit-msg"]
