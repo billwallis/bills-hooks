@@ -38,13 +38,15 @@ def is_valid_commit_message(commit_message: str) -> bool:
     return bool(re.match(PATTERN, commit_message))
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def main(argv: Sequence[str] = None) -> int:
     """
     Parse the arguments and run the hook.
     """
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "input", type=str, help="A file containing a git commit message"
+        "input",
+        type=str,
+        help="A file containing a git commit message. Pre-commit passes this in automatically.",
     )
     args = parser.parse_args(argv)
 
