@@ -38,7 +38,7 @@ def is_valid_commit_message(commit_message: str) -> bool:
     return bool(re.match(PATTERN, commit_message))
 
 
-def main(argv: Sequence[str] = None) -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     """
     Parse the arguments and run the hook.
     """

@@ -7,7 +7,7 @@ import textwrap
 
 import pytest
 
-import bills_hooks.gitmoji_conventional_commit._dev as dev  # noqa
+import bills_hooks.gitmoji_conventional_commit._dev as dev
 
 
 @pytest.fixture
