@@ -12,7 +12,7 @@ import urllib.request
 import yaml
 
 from bills_hooks import SOURCE_ROOT
-from bills_hooks._logging.logger import setup_logging  # noqa
+from bills_hooks._logging.logger import setup_logging
 
 GITMOJIS_URL = "https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json"
 
@@ -25,7 +25,7 @@ def collect_gitmoji() -> None:
     Collect the gitmoji from the ``gitmojis.json`` file.
     """
     logger.debug(f"Using gitmoji URL: {GITMOJIS_URL}")
-    with urllib.request.urlopen(GITMOJIS_URL) as response:
+    with urllib.request.urlopen(GITMOJIS_URL) as response:  # noqa: S310
         gitmojis = yaml.safe_load(response.read())
         logger.debug(f"Collecting {len(gitmojis['gitmojis'])} gitmojis")
 

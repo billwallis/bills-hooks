@@ -6,7 +6,7 @@ import pathlib
 
 import pytest
 
-import bills_hooks.gitmoji_conventional_commit.hook as hook
+from bills_hooks.gitmoji_conventional_commit import hook
 
 
 @pytest.mark.parametrize(
