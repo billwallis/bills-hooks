@@ -20,7 +20,8 @@ from collections.abc import Sequence
 
 # Basic pattern for a conventional commit message, not the full spec
 PATTERN = re.compile(
-    r"^(\W+ )?(build|chore|docs|feat|fix|perf|refactor|style|test)(\(.*\))?!?: [A-Z][\s\S]*(\s#\d+)?\S$"
+    r"^(\W+ )?(build|chore|docs|feat|fix|perf|refactor|style|test)(\(.*\))?!?: [A-Z][\s\S]*(\s#\d+)?\S$",
+    flags=re.IGNORECASE,
 )
 
 # Return values
