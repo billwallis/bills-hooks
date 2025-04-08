@@ -1,39 +1,34 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "bills-hooks"
-version = "0.0.1"
-description = ""
+version = "0.0.2"
+description = "Pre-commit hooks for my own projects."
 authors = [{name = "Bilbottom"}]
 readme = "README.md"
-packages = [{include = "bills_hooks"}]
 requires-python = ">=3.11"
-dynamic = ["dependencies"]
+dependencies = [
+    "pyyaml>=6.0.0",
+]
 
 [project.scripts]
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "coverage-badge>=1.1.0",
+    "pre-commit>=4.1.0",
+]
+test = [
+    "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
+]
 
 
-[tool.poetry]
-packages = [{include = "bills_hooks"}]
-
-[tool.poetry.dependencies]
-pyyaml = "^6.0.1"
-
-[tool.poetry.group]
-dev.optional = true
-test.optional = true
-
-[tool.poetry.group.dev.dependencies]
-coverage-badge = "^1.1.0"
-pre-commit = "^3.6.2"
-pylint = "3.1.0"
-
-[tool.poetry.group.test.dependencies]
-pytest = "^8.0.2"
-pytest-cov = "^4.1.0"
+[tool.setuptools]
+packages = ["bills_hooks"]
 
 
 [tool.pytest.ini_options]
