@@ -12,3 +12,15 @@
   always_run: true
   pass_filenames: true
   stages: ["commit-msg"]
+- id: tidy-gitkeep
+  name: Remove redundant .gitkeep files
+  description: >
+    Remove redundant .gitkeep files from the repository.
+
+    A `.gitkeep` file is redundant if the directory it is in has any
+    other tracked files. The tracked files can be in the same directory
+    or in subdirectories.
+  entry: tidy-gitkeep
+  language: python
+  always_run: true
+  pass_filenames: false

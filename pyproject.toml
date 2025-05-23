@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
+tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
 
 [dependency-groups]
 dev = [
