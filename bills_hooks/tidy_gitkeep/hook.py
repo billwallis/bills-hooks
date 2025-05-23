@@ -8,13 +8,16 @@ subdirectories.
 
 from __future__ import annotations
 
+import argparse
 import os
 import pathlib
 import subprocess
+from collections.abc import Sequence
 
 # Return values
 SUCCESS = 0
 FAILURE = 1
+SUBPROCESS_ERROR_CODE = 128
 
 
 def _get_gitkeep_files(root_dir: pathlib.Path) -> list[pathlib.Path]:
@@ -22,9 +25,7 @@ def _get_gitkeep_files(root_dir: pathlib.Path) -> list[pathlib.Path]:
     Return a list of all `.gitkeep` files in the repository.
     """
 
-    return [
-        path for path in root_dir.rglob(".gitkeep")
-    ]
+    return [path for path in root_dir.rglob(".gitkeep")]
 
 
 def _is_file_ignored(file: pathlib.Path) -> bool:
@@ -34,15 +35,16 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
     https://git-scm.com/docs/git-check-ignore
     """
 
-    completed_process = subprocess.run(
-        f"git check-ignore {file} --quiet".split(" ")
+    completed_process = subprocess.run(  # noqa: S603
+        f"git check-ignore {file} --quiet".split(" "),
+        check=False,
     )
 
-    if completed_process.returncode == 0:
+    if completed_process.returncode == SUCCESS:
         return True
-    if completed_process.returncode == 1:
+    if completed_process.returncode == FAILURE:
         return False
-    if completed_process.returncode == 128:
+    if completed_process.returncode == SUBPROCESS_ERROR_CODE:
         raise RuntimeError(completed_process.stderr)
     raise RuntimeError("Failed to check if file is ignored by git.")
 
@@ -69,12 +71,23 @@ def _remove_redundant_gitkeep_files(
     return outcome
 
 
-def main() -> int:
+def main(argv: Sequence[str] | None = None) -> int:
     """
     Parse the arguments and run the hook.
     """
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--working-directory",
+        type=str,
+        default=None,
+        required=False,
+        help="The working directory to check for redundant .gitkeep files. Defaults to the current working directory.",
+    )
+    args = parser.parse_args(argv)
 
-    return _remove_redundant_gitkeep_files(pathlib.Path(os.getcwd()))
+    working_directory = args.working_directory or os.getcwd()
+
+    return _remove_redundant_gitkeep_files(pathlib.Path(working_directory))
 
 
 if __name__ == "__main__":

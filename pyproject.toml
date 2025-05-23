@@ -36,7 +36,9 @@ packages = [
 
 
 [tool.pytest.ini_options]
-addopts = "--cov=bills_hooks --cov-fail-under=80"
+# `basetemp` is relative to the working directory, so make sure you run
+# pytest from the root of the project.
+addopts = "--cov=bills_hooks --cov-fail-under=80 --basetemp=tests-temp/"
 testpaths = ["tests"]
 
 
