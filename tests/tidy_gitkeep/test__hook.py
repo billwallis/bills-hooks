@@ -38,8 +38,12 @@ def test__redundant_files_are_removed(working_dir: pathlib.Path):
     environment with its own git repository and configuration, but I
     cba right now.
     """
-    hook.main(["--working-directory", str(working_dir)])
+    rc = hook.main(["--working-directory", str(working_dir)])
 
+    assert rc == hook.FAILURE
     assert (working_dir / "subdir-1/subdir-2/.gitkeep").exists()
     assert not (working_dir / "subdir-3/subdir-4/.gitkeep").exists()
     assert (working_dir / "subdir-3/subdir-5/.gitkeep").exists()
+
+    rc = hook.main(["--working-directory", str(working_dir)])
+    assert rc == hook.SUCCESS

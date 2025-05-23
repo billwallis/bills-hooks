@@ -25,7 +25,7 @@ def _get_gitkeep_files(root_dir: pathlib.Path) -> list[pathlib.Path]:
     Return a list of all `.gitkeep` files in the repository.
     """
 
-    return [path for path in root_dir.rglob(".gitkeep")]
+    return list(root_dir.rglob(".gitkeep"))
 
 
 def _is_file_ignored(file: pathlib.Path) -> bool:
