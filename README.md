@@ -24,9 +24,10 @@ Add the following hook to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/Bilbottom/bills-hooks
-  rev: v0.0.1
+  rev: v0.0.3
   hooks:
     - id: gitmoji-conventional-commit
+    - id: tidy-gitkeep
 ```
 
 ## Available Hooks
@@ -42,3 +43,9 @@ This hook checks that your commit messages are (optionally) prefixed with a [git
 Inspired by:
 
 - https://github.com/compilerla/conventional-pre-commit
+
+### `tidy-gitkeep` ([source](bills_hooks/tidy_gitkeep/hook.py))
+
+This hook removes redundant `.gitkeep` files from your repository.
+
+A `.gitkeep` file is redundant if the directory it is in has any other files that are not ignored by git. The non-ignored files can be in the same directory or in subdirectories.
