@@ -3,9 +3,6 @@ ci:
   autoupdate_schedule: quarterly
   skip: ["identity", "uv-lock", "pytest", "coverage-badge"]
 
-default_install_hook_types: ["pre-commit", "commit-msg"]
-default_stages: ["pre-commit"]
-
 repos:
   - repo: meta
     hooks:
@@ -71,11 +68,3 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-
-  # Custom hooks
-  - repo: https://github.com/Bilbottom/bills-hooks
-    rev: v0.0.1
-    hooks:
-      - id: gitmoji-conventional-commit
-        name: Validate commit messages
-        stages: ["commit-msg"]

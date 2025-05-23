@@ -4,17 +4,18 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bills-hooks"
-version = "0.0.2"
+version = "0.0.3"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "Bilbottom"}]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
     "pyyaml>=6.0.0",
 ]
 
 [project.scripts]
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
+tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
 
 [dependency-groups]
 dev = [
@@ -28,11 +29,16 @@ test = [
 
 
 [tool.setuptools]
-packages = ["bills_hooks"]
+packages = [
+    "bills_hooks.gitmoji_conventional_commit",
+    "bills_hooks.tidy_gitkeep",
+]
 
 
 [tool.pytest.ini_options]
-addopts = "--cov=bills_hooks --cov-fail-under=80"
+# `basetemp` is relative to the working directory, so make sure you run
+# pytest from the root of the project.
+addopts = "--cov=bills_hooks --cov-fail-under=80 --basetemp=tests-temp/"
 testpaths = ["tests"]
 
 
