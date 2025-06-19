@@ -27,6 +27,7 @@ Add the following hooks to your `.pre-commit-config.yaml`:
   rev: v0.0.3
   hooks:
     - id: gitmoji-conventional-commit # warning: still in development
+    - id: pre-commit-validate
     - id: tidy-gitkeep
 ```
 
@@ -43,6 +44,16 @@ This hook checks that your commit messages are (optionally) prefixed with a [git
 Inspired by:
 
 - https://github.com/compilerla/conventional-pre-commit
+
+### `pre-commit-validate` ([source](bills_hooks/pre_commit_validate/hook.py))
+
+This hook validates that your pre-commit configuration file (`.pre-commit-config.yaml`) is valid.
+
+Currently, it only checks that the hook IDs listed in the `ci.skip` array exist in the `hooks` section of the configuration file.
+
+Some ideas for future improvements:
+
+- Validate that `default_install_hook_types` and `default_stages` align with the hooks' `stages`.
 
 ### `tidy-gitkeep` ([source](bills_hooks/tidy_gitkeep/hook.py))
 
