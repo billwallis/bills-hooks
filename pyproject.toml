@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bills-hooks"
-version = "0.0.3"
+version = "0.0.4"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
@@ -15,6 +15,7 @@ dependencies = [
 
 [project.scripts]
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
+pre-commit-validate = "bills_hooks.pre_commit_validate.hook:main"
 tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
 
 [dependency-groups]
@@ -31,6 +32,7 @@ test = [
 [tool.setuptools]
 packages = [
     "bills_hooks.gitmoji_conventional_commit",
+    "bills_hooks.pre_commit_validate",
     "bills_hooks.tidy_gitkeep",
 ]
 
