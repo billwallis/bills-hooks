@@ -56,12 +56,8 @@ def test__redundant_files_are_removed(working_dir: pathlib.Path):
     removed_gitkeep_files = [
         str(working_dir / "subdir-3/subdir-4/.gitkeep"),
     ]
-    args = [
-        "--working-directory",
-        str(working_dir),
-    ]
 
-    rc = hook.main([*kept_gitkeep_files, *removed_gitkeep_files, *args])
+    rc = hook.main([*kept_gitkeep_files, *removed_gitkeep_files])
 
     assert rc == hook.FAILURE
     for file in [*other_files, *kept_gitkeep_files]:
@@ -69,5 +65,5 @@ def test__redundant_files_are_removed(working_dir: pathlib.Path):
     for file in removed_gitkeep_files:
         assert not pathlib.Path(file).exists()
 
-    rc = hook.main(["--working-directory", str(working_dir)])
+    rc = hook.main(kept_gitkeep_files)
     assert rc == hook.SUCCESS

@@ -9,7 +9,6 @@ subdirectories.
 from __future__ import annotations
 
 import argparse
-import os
 import pathlib
 import subprocess
 from collections.abc import Sequence
@@ -41,10 +40,7 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
     raise RuntimeError("Failed to check if file is ignored by git.")
 
 
-def _remove_redundant_gitkeep_file(
-    root_dir: pathlib.Path,
-    gitkeep_file: pathlib.Path,
-) -> int:
+def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path) -> int:
     """
     Remove redundant `.gitkeep` files from the repository.
     """
@@ -56,8 +52,8 @@ def _remove_redundant_gitkeep_file(
         if other_file.is_file() and other_file != gitkeep_file
     ]
     if any(not _is_file_ignored(other_file) for other_file in other_files):
-        print(f"Removing file '{gitkeep_file.relative_to(root_dir)}'")
         gitkeep_file.unlink()
+        print(f"Removed file '{gitkeep_file}'")
         outcome = FAILURE
 
     return outcome
@@ -70,22 +66,11 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     parser = argparse.ArgumentParser()
     parser.add_argument("filenames", nargs="*")
-    parser.add_argument(
-        "--working-directory",
-        type=str,
-        default=None,
-        required=False,
-        help=argparse.SUPPRESS,  # for testing purposes only
-    )
     args = parser.parse_args(argv)
 
-    working_directory = args.working_directory or os.getcwd()
     return_code = SUCCESS
     for filename in args.filenames:
-        return_code |= _remove_redundant_gitkeep_file(
-            root_dir=pathlib.Path(working_directory),
-            gitkeep_file=pathlib.Path(filename),
-        )
+        return_code |= _remove_redundant_gitkeep_file(pathlib.Path(filename))
 
     return return_code
 
