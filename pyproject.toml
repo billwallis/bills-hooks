@@ -37,6 +37,10 @@ packages = [
 ]
 
 
+[tool.uv]
+required-version = ">=0.7,<1.0"
+
+
 [tool.pytest.ini_options]
 # `basetemp` is relative to the working directory, so make sure you run
 # pytest from the root of the project.
