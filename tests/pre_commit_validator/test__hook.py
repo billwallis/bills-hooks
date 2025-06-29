@@ -53,7 +53,7 @@ def test__valid_config_passes(
     A valid pre-commit configuration file passes validation.
     """
 
-    rc = hook.main(["--pre-commit-config-path", str(valid_config_file)])
+    rc = hook.main([str(valid_config_file)])
     assert rc == hook.SUCCESS
 
 
@@ -64,5 +64,5 @@ def test__invalid_config_fails(
     An invalid pre-commit configuration file fails validation.
     """
 
-    rc = hook.main(["--pre-commit-config-path", str(invalid_config_file)])
+    rc = hook.main([str(invalid_config_file)])
     assert rc == hook.FAILURE

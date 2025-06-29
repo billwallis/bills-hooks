@@ -10,7 +10,6 @@ listed in the ``ci.skip`` array are actually defined in the file.
 from __future__ import annotations
 
 import argparse
-import os
 import pathlib
 from collections.abc import Sequence
 
@@ -52,20 +51,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     """
 
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--pre-commit-config-path",
-        type=str,
-        default=None,
-        required=False,
-        help=argparse.SUPPRESS,  # for testing purposes only
-    )
+    parser.add_argument("filenames", nargs="*")
     args = parser.parse_args(argv)
 
-    pre_commit_config = (
-        args.pre_commit_config_path or f"{os.getcwd()}/.pre-commit-config.yaml"
-    )
+    return_code = SUCCESS
+    for filename in args.filenames:
+        return_code |= _validate_config(pathlib.Path(filename))
 
-    return _validate_config(pathlib.Path(pre_commit_config))
+    return return_code
 
 
 if __name__ == "__main__":
