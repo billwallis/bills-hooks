@@ -32,5 +32,4 @@
     or in subdirectories.
   entry: tidy-gitkeep
   language: python
-  always_run: true
-  pass_filenames: false
+  files: ^.+\.gitkeep$

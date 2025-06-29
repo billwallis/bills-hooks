@@ -20,14 +20,6 @@ FAILURE = 1
 SUBPROCESS_ERROR_CODE = 128
 
 
-def _get_gitkeep_files(root_dir: pathlib.Path) -> list[pathlib.Path]:
-    """
-    Return a list of all `.gitkeep` files in the repository.
-    """
-
-    return list(root_dir.rglob(".gitkeep"))
-
-
 def _is_file_ignored(file: pathlib.Path) -> bool:
     """
     Check if a file is ignored by git.
@@ -49,24 +41,24 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
     raise RuntimeError("Failed to check if file is ignored by git.")
 
 
-def _remove_redundant_gitkeep_files(
+def _remove_redundant_gitkeep_file(
     root_dir: pathlib.Path,
+    gitkeep_file: pathlib.Path,
 ) -> int:
     """
     Remove redundant `.gitkeep` files from the repository.
     """
 
     outcome = SUCCESS
-    for file in _get_gitkeep_files(root_dir):
-        other_files = [
-            other_file
-            for other_file in file.parent.rglob("*")
-            if other_file.is_file() and other_file != file
-        ]
-        if any(not _is_file_ignored(other_file) for other_file in other_files):
-            print(f"Removing file '{file.relative_to(root_dir)}'")
-            file.unlink()
-            outcome = FAILURE
+    other_files = [
+        other_file
+        for other_file in gitkeep_file.parent.rglob("*")
+        if other_file.is_file() and other_file != gitkeep_file
+    ]
+    if any(not _is_file_ignored(other_file) for other_file in other_files):
+        print(f"Removing file '{gitkeep_file.relative_to(root_dir)}'")
+        gitkeep_file.unlink()
+        outcome = FAILURE
 
     return outcome
 
@@ -75,19 +67,27 @@ def main(argv: Sequence[str] | None = None) -> int:
     """
     Parse the arguments and run the hook.
     """
+
     parser = argparse.ArgumentParser()
+    parser.add_argument("filenames", nargs="*")
     parser.add_argument(
         "--working-directory",
         type=str,
         default=None,
         required=False,
-        help="The working directory to check for redundant .gitkeep files. Defaults to the current working directory.",
+        help=argparse.SUPPRESS,  # for testing purposes only
     )
     args = parser.parse_args(argv)
 
     working_directory = args.working_directory or os.getcwd()
+    return_code = SUCCESS
+    for filename in args.filenames:
+        return_code |= _remove_redundant_gitkeep_file(
+            root_dir=pathlib.Path(working_directory),
+            gitkeep_file=pathlib.Path(filename),
+        )
 
-    return _remove_redundant_gitkeep_files(pathlib.Path(working_directory))
+    return return_code
 
 
 if __name__ == "__main__":
