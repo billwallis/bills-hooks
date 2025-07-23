@@ -12,16 +12,6 @@
   always_run: true
   pass_filenames: true
   stages: ["commit-msg"]
-- id: pre-commit-validate
-  name: Validate pre-commit config
-  description: >
-    Validate the pre-commit configuration file.
-
-    Currently, it only checks that the hook IDs listed in the `ci.skip`
-    array exist in the `hooks` section of the configuration file.
-  entry: pre-commit-validate
-  language: python
-  files: ^\.pre-commit-config\.yaml$
 - id: tidy-gitkeep
   name: Remove redundant .gitkeep files
   description: >
