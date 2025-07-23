@@ -1,7 +1,7 @@
 ---
 ci:
   autoupdate_schedule: quarterly
-  skip: ["identity", "uv-lock", "pytest", "coverage-badge"]
+  skip: ["identity", "uv-lock", "pytest", "coverage-badge", "something-that-does-not-exist"]
 
 repos:
   - repo: meta
