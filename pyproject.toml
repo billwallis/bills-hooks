@@ -4,16 +4,20 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bills-hooks"
-version = "0.0.7"
+version = "0.0.8"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "pyyaml>=6.0.0",
+    # v82 drops `pkg_resources`, which is required by coverage-badge:
+    # - https://github.com/dbrgn/coverage-badge/issues/33
+    "setuptools<82.0.0",
 ]
 
 [project.scripts]
+check-filename-pattern = "bills_hooks.check_filename_pattern.hook:main"
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
 tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
 
@@ -30,6 +34,7 @@ test = [
 
 [tool.setuptools]
 packages = [
+    "bills_hooks.check_filename_pattern",
     "bills_hooks.gitmoji_conventional_commit",
     "bills_hooks.tidy_gitkeep",
 ]

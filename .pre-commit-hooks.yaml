@@ -1,4 +1,9 @@
 ---
+- id: check-filename-pattern
+  name: Check filenames for pattern
+  description: Validate that filenames follow the specified pattern.
+  entry: check-filename-pattern
+  language: python
 - id: gitmoji-conventional-commit
   name: Gitmoji conventional commit message
   description: >

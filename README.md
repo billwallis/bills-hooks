@@ -24,13 +24,31 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/billwallis/bills-hooks
-  rev: v0.0.7
+  rev: v0.0.8
   hooks:
+    - id: check-filename-pattern
+      args: ["--regex", "<some-regex-pattern>"]
     - id: gitmoji-conventional-commit # warning: still in development
     - id: tidy-gitkeep
 ```
 
 ## Available Hooks
+
+### `check-filename-pattern` ([source](bills_hooks/check_filename_pattern/hook.py))
+
+This hook checks filenames against a given pattern.
+
+Specify the regular expression pattern with the `--regex` argument. Optionally use the `--name-only` flag to just match against file name (including extension).
+
+This is useful for, say, checking that all files in a directory follow a given pattern. For example, all Python test files in the `tests/` directory start with `test_`:
+
+```yaml
+hooks:
+  - id: check-filename-pattern
+    files: '^tests/.*\.py$'
+    exclude: '^.*/(conftest\.py|__init__\.py)$'
+    args: ["--name-only", "--regex", '^test_.*\.py$']
+```
 
 ### `gitmoji-conventional-commit` ([source](bills_hooks/gitmoji_conventional_commit/hook.py))
 
