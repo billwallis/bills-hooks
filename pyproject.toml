@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bills-hooks"
-version = "0.0.6"
+version = "0.0.7"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"

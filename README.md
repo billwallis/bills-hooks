@@ -24,7 +24,7 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/billwallis/bills-hooks
-  rev: v0.0.6
+  rev: v0.0.7
   hooks:
     - id: gitmoji-conventional-commit # warning: still in development
     - id: tidy-gitkeep
