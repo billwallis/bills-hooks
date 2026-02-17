@@ -67,6 +67,41 @@ def test__redundant_files_are_removed(working_dir: pathlib.Path):
         assert not pathlib.Path(file).exists()
 
 
+def test__redundant_files_are_removed_using_dot_expression(
+    monkeypatch: pytest.MonkeyPatch,
+    working_dir: pathlib.Path,
+):
+    """
+    Redundant .gitkeep files are removed.
+
+    This emulates using this as a CLI and passing the `.` argument for filenames
+    which is shorthand for "all files".
+    """
+
+    other_files = [
+        str(working_dir / "subdir-1/file-1.txt"),
+        str(working_dir / "subdir-3/subdir-4/file-2.txt"),
+        str(working_dir / "subdir-3/subdir-5/file-3.txt"),
+        str(working_dir / "subdir-3/.gitignore"),
+    ]
+    kept_gitkeep_files = [
+        str(working_dir / "subdir-1/subdir-2/.gitkeep"),
+        str(working_dir / "subdir-3/subdir-5/.gitkeep"),
+    ]
+    removed_gitkeep_files = [
+        str(working_dir / "subdir-3/subdir-4/.gitkeep"),
+    ]
+
+    monkeypatch.chdir(working_dir)
+    rc = hook.main(["."])
+
+    assert rc == hook.SUCCESS
+    for file in [*other_files, *kept_gitkeep_files]:
+        assert pathlib.Path(file).exists()
+    for file in removed_gitkeep_files:
+        assert not pathlib.Path(file).exists()
+
+
 def test__unexpected_subprocess_errors_are_raised(
     monkeypatch: pytest.MonkeyPatch,
 ):

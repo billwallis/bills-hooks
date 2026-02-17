@@ -49,3 +49,9 @@ Inspired by:
 This hook removes redundant `.gitkeep` files from your repository.
 
 A `.gitkeep` file is redundant if the directory it is in has any other files that are not ignored by git. The non-ignored files can be in the same directory or in subdirectories.
+
+This can also be run as a CLI:
+
+```shell
+uvx --from 'git+https://github.com/billwallis/bills-hooks' tidy-gitkeep .
+```

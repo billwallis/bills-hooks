@@ -53,6 +53,10 @@ def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path):
         print(f"Removed file '{gitkeep_file}'")
 
 
+def _get_gitkeep_files(root_dir: pathlib.Path) -> list[pathlib.Path]:
+    return [obj for obj in root_dir.rglob(".gitkeep") if obj.is_file()]
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """
     Parse the arguments and run the hook.
@@ -62,7 +66,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("filenames", nargs="*")
     args = parser.parse_args(argv)
 
-    for filename in args.filenames:
+    filenames = (
+        _get_gitkeep_files(pathlib.Path("."))
+        if args.filenames == ["."]
+        else args.filenames
+    )
+    for filename in filenames:
         _remove_redundant_gitkeep_file(pathlib.Path(filename))
 
     return SUCCESS
