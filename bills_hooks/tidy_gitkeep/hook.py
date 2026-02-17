@@ -16,7 +16,6 @@ from collections.abc import Sequence
 # Return values
 SUCCESS = 0
 FAILURE = 1
-SUBPROCESS_ERROR_CODE = 128
 
 
 def _is_file_ignored(file: pathlib.Path) -> bool:
@@ -35,17 +34,15 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
         return True
     if completed_process.returncode == FAILURE:
         return False
-    if completed_process.returncode == SUBPROCESS_ERROR_CODE:
-        raise RuntimeError(completed_process.stderr)
-    raise RuntimeError("Failed to check if file is ignored by git.")
+
+    raise RuntimeError(completed_process.stderr)
 
 
-def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path) -> int:
+def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path):
     """
     Remove redundant `.gitkeep` files from the repository.
     """
 
-    outcome = SUCCESS
     other_files = [
         other_file
         for other_file in gitkeep_file.parent.rglob("*")
@@ -54,9 +51,6 @@ def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path) -> int:
     if any(not _is_file_ignored(other_file) for other_file in other_files):
         gitkeep_file.unlink()
         print(f"Removed file '{gitkeep_file}'")
-        outcome = FAILURE
-
-    return outcome
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -68,11 +62,10 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("filenames", nargs="*")
     args = parser.parse_args(argv)
 
-    return_code = SUCCESS
     for filename in args.filenames:
-        return_code |= _remove_redundant_gitkeep_file(pathlib.Path(filename))
+        _remove_redundant_gitkeep_file(pathlib.Path(filename))
 
-    return return_code
+    return SUCCESS
 
 
 if __name__ == "__main__":
