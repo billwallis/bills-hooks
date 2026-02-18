@@ -18,9 +18,11 @@ import argparse
 import re
 from collections.abc import Sequence
 
+from bills_hooks.gitmoji_conventional_commit._emoji import EMOJI_SEQUENCE
+
 # Basic pattern for a conventional commit message, not the full spec
 PATTERN = re.compile(
-    r"^(\W+ )?(build|chore|docs|feat|fix|perf|refactor|style|test)(\(.*\))?!?: [A-Z][\s\S]*(\s#\d+)?\S$",
+    rf"^({EMOJI_SEQUENCE} )?(build|chore|docs|feat|fix|perf|refactor|style|test)(\(.*\))?!?: [A-Z][\s\S]*(\s#\d+)?\S$",
     flags=re.IGNORECASE,
 )
 
@@ -34,22 +36,15 @@ def is_valid_commit_message(commit_message: str) -> bool:
     Validate that a commit message follows conventional commits, with an
     optional gitmoji at the start of the header.
     """
-    if commit_message.startswith("\n"):
-        return False
-    return bool(re.match(PATTERN, commit_message))
+
+    return bool(PATTERN.match(commit_message))
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def _validate_commit_message(args: argparse.Namespace) -> int:
     """
-    Parse the arguments and run the hook.
+    Validate that commit messages follow conventional commits, with an
+    optional gitmoji at the start of the header.
     """
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "input",
-        type=str,
-        help="A file containing a git commit message. Pre-commit passes this in automatically.",
-    )
-    args = parser.parse_args(argv)
 
     with open(args.input, encoding="utf-8") as file:
         message = file.read()
@@ -59,6 +54,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         return FAILURE
 
     return SUCCESS
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """
+    Parse the arguments and run the hook.
+    """
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "input",
+        type=str,
+        help="A file containing a git commit message. pre-commit passes this in automatically.",
+    )
+    args = parser.parse_args(argv)
+
+    return _validate_commit_message(args)
 
 
 if __name__ == "__main__":

@@ -27,6 +27,19 @@ def _is_valid_regex_pattern(
     return False
 
 
+def _check_filename_pattern(filename: str, args: argparse.Namespace) -> int:
+    """
+    Check filenames match patterns.
+    """
+
+    name = pathlib.Path(filename).name if args.name_only else filename
+
+    if args.regex:
+        return SUCCESS if _is_valid_regex_pattern(name, args.regex) else FAILURE
+
+    return SUCCESS
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """
     Parse the arguments and run the hook.
@@ -43,11 +56,8 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     outcome = SUCCESS
-    for filepath in args.filenames:
-        filename = pathlib.Path(filepath).name if args.name_only else filepath
-        if args.regex:
-            outcome |= int(not _is_valid_regex_pattern(filename, args.regex))
-
+    for filename in args.filenames:
+        outcome |= _check_filename_pattern(filename, args)
     return outcome
 
 

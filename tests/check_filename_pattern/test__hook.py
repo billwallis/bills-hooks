@@ -5,11 +5,10 @@ from bills_hooks.check_filename_pattern import hook
 
 def test__hook_can_be_run_without_arguments():
     """
-    The hook is a no-op when run without arguments.
+    The hook is a no-op when run on files without arguments.
     """
 
-    rc = hook.main([])
-    assert rc == 0
+    assert hook.main(["foo", "bar"]) == 0
 
 
 @pytest.mark.parametrize(
@@ -32,8 +31,7 @@ def test__regex_patterns_can_be_matched(
     Regex patterns can be matched.
     """
 
-    rc = hook.main([*filenames, "--regex", regex])
-    assert rc == expected_outcome
+    assert hook.main([*filenames, "--regex", regex]) == expected_outcome
 
 
 @pytest.mark.parametrize(
@@ -74,5 +72,6 @@ def test__regex_patterns_can_be_matched_by_name_only(
     Regex patterns can be matched.
     """
 
-    rc = hook.main([*filenames, "--regex", regex, name_only])
-    assert rc == expected_outcome
+    assert (
+        hook.main([*filenames, "--regex", regex, name_only]) == expected_outcome
+    )

@@ -26,6 +26,7 @@ def test__is_valid_commit_message(message: str, expected: bool):
     """
     Test the ``is_valid_commit_message`` function.
     """
+
     assert hook.is_valid_commit_message(message) == expected
 
 
@@ -34,6 +35,7 @@ def message_path__success(tmp_path: pathlib.Path) -> pathlib.Path:
     """
     A commit message that is valid.
     """
+
     file = tmp_path / "message-success.txt"
     file.write_text(
         "✨ feat(scope): This is a good message\n\nWith a good body",
@@ -48,6 +50,7 @@ def message_path__failure(tmp_path: pathlib.Path) -> pathlib.Path:
     """
     A commit message that is not valid.
     """
+
     file = tmp_path / "message-failure.txt"
     file.write_text("this is a bad message")
 
@@ -55,10 +58,12 @@ def message_path__failure(tmp_path: pathlib.Path) -> pathlib.Path:
 
 
 def test__main(
-    message_path__success: pathlib.Path, message_path__failure: pathlib.Path
+    message_path__success: pathlib.Path,
+    message_path__failure: pathlib.Path,
 ):
     """
     Test the ``main`` function.
     """
+
     assert hook.main([str(message_path__success)]) == hook.SUCCESS
     assert hook.main([str(message_path__failure)]) == hook.FAILURE
