@@ -1,7 +1,3 @@
-"""
-Unit tests for the ``bills_hooks.tidy_gitkeep.hook`` module.
-"""
-
 import pathlib
 import shutil
 import subprocess

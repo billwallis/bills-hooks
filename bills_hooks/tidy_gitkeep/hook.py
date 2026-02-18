@@ -57,14 +57,10 @@ def _get_gitkeep_files(root_dir: pathlib.Path) -> list[pathlib.Path]:
     return [obj for obj in root_dir.rglob(".gitkeep") if obj.is_file()]
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def _tidy_gitkeep_files(args: argparse.Namespace) -> int:
     """
-    Parse the arguments and run the hook.
+    Remove redundant .gitkeep files from the repository.
     """
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("filenames", nargs="*")
-    args = parser.parse_args(argv)
 
     filenames = (
         _get_gitkeep_files(pathlib.Path("."))
@@ -75,6 +71,18 @@ def main(argv: Sequence[str] | None = None) -> int:
         _remove_redundant_gitkeep_file(pathlib.Path(filename))
 
     return SUCCESS
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """
+    Parse the arguments and run the hook.
+    """
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filenames", nargs="*")
+    args = parser.parse_args(argv)
+
+    return _tidy_gitkeep_files(args)
 
 
 if __name__ == "__main__":
