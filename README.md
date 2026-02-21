@@ -3,7 +3,7 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![tests](https://github.com/billwallis/bills-hooks/actions/workflows/tests.yaml/badge.svg)](https://github.com/billwallis/bills-hooks/actions/workflows/tests.yaml)
-[![coverage](coverage.svg)](https://github.com/dbrgn/coverage-badge)
+[![coverage](coverage.svg)](https://smarie.github.io/python-genbadge/)
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/billwallis/bills-hooks/main.svg)](https://results.pre-commit.ci/latest/github/billwallis/bills-hooks/main)
