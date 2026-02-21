@@ -38,7 +38,7 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
     raise RuntimeError(completed_process.stderr)
 
 
-def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path):
+def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path) -> None:
     """
     Remove redundant `.gitkeep` files from the repository.
     """

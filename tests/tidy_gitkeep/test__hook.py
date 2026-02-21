@@ -1,6 +1,7 @@
 import pathlib
 import shutil
 import subprocess
+from typing import Any
 
 import pytest
 
@@ -114,7 +115,7 @@ def test__unexpected_subprocess_errors_are_raised(
 
     err_msg = "Damn it, Jim, I'm a doctor, not a git repository"
 
-    def run(*args, **kwargs):  # noqa: unused parameters
+    def run(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess:  # noqa: unused parameters
         return subprocess.CompletedProcess([], returncode=2, stderr=err_msg)
 
     monkeypatch.setattr(subprocess, "run", run)
