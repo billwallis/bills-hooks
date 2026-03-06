@@ -10,7 +10,7 @@ version = "0.0.8"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.13"
 dependencies = [
     "pyyaml>=6.0.0",
 ]
@@ -22,7 +22,7 @@ tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
 
 [dependency-groups]
 dev = [
-    "poethepoet>=0.41.0",
+    "poethepoet>=0.42.1",
     "pre-commit>=4.5.1",
 ]
 test = [
@@ -32,16 +32,13 @@ test = [
 
 
 [tool.uv]
-required-version = ">=0.8,<1.0"
+required-version = ">=0.8"
 default-groups = "all"
-
-[tool.uv.build-backend]
-namespace = true
 
 
 [tool.poe]
 verbosity = -1
-#envfile = ".env"
+envfile.optional = ".env"
 
 [tool.poe.tasks]
 install.shell = """
@@ -78,7 +75,7 @@ shell = """
 [tool.pytest.ini_options]
 # `basetemp` is relative to the working directory, so make sure you run
 # pytest from the root of the project.
-addopts = "--cov=bills_hooks --cov-fail-under=100 --basetemp=tests-temp/"
+addopts = "--cov=src --cov-fail-under=100 --basetemp=tests-temp/"
 testpaths = ["tests"]
 
 
