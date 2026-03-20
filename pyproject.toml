@@ -6,11 +6,11 @@ build-backend = "uv_build"
 
 [project]
 name = "bills-hooks"
-version = "0.0.8"
+version = "0.0.9"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
     "pyyaml>=6.0.0",
 ]
