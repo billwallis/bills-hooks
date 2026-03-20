@@ -22,17 +22,18 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/billwallis/bills-hooks
-  rev: v0.0.8
+  rev: v0.0.9
   hooks:
     - id: check-filename-pattern
       args: ["--regex", "<some-regex-pattern>"]
+    - id: check-no-commit-comment
     - id: gitmoji-conventional-commit # warning: still in development
     - id: tidy-gitkeep
 ```
 
 ## Available Hooks
 
-### `check-filename-pattern` ([source](bills_hooks/check_filename_pattern/hook.py))
+### `check-filename-pattern` ([source](src/bills_hooks/check_filename_pattern/hook.py))
 
 This hook checks filenames against a given pattern.
 
@@ -48,7 +49,17 @@ hooks:
     args: ["--name-only", "--regex", '^test_.*\.py$']
 ```
 
-### `gitmoji-conventional-commit` ([source](bills_hooks/gitmoji_conventional_commit/hook.py))
+### `check-no-commit-comment` ([source](src/bills_hooks/check_filename_pattern/hook.py))
+
+This hook checks files for comments including the text `NO_COMMIT`.
+
+Currently, this only supports Python files.
+
+Inspired by:
+
+- https://github.com/elementary-data/elementary/blob/ef5043811a72009126391a3f0c8a18f72ae00b18/.pre-commit-config.yaml
+
+### `gitmoji-conventional-commit` ([source](src/bills_hooks/gitmoji_conventional_commit/hook.py))
 
 > [!WARNING]
 >
@@ -60,7 +71,7 @@ Inspired by:
 
 - https://github.com/compilerla/conventional-pre-commit
 
-### `tidy-gitkeep` ([source](bills_hooks/tidy_gitkeep/hook.py))
+### `tidy-gitkeep` ([source](src/bills_hooks/tidy_gitkeep/hook.py))
 
 This hook removes redundant `.gitkeep` files from your repository.
 

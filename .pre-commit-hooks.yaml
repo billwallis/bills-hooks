@@ -1,9 +1,21 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pre-commit-hooks.json
 ---
 - id: check-filename-pattern
   name: Check filenames for pattern
   description: Validate that filenames follow the specified pattern.
   entry: check-filename-pattern
   language: python
+- id: check-no-commit-comment
+  name: Check for `NO_COMMIT` comments
+  description: >
+    Validate that files don't have any `NO_COMMIT` comments (Python only).
+
+    Inspired by:
+
+    - https://github.com/elementary-data/elementary/blob/ef5043811a72009126391a3f0c8a18f72ae00b18/.pre-commit-config.yaml
+  entry: check-no-commit-comment
+  language: python
+  types: ["python"]
 - id: gitmoji-conventional-commit
   name: Gitmoji conventional commit message
   description: >
