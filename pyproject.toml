@@ -1,12 +1,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/pyproject.json
 
 [build-system]
-requires = ["uv_build>=0.8.2,<1.0.0"]
+requires = ["uv_build>=0.8"]
 build-backend = "uv_build"
 
 [project]
 name = "bills-hooks"
-version = "0.0.9"
+version = "0.0.10"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
@@ -16,6 +16,8 @@ dependencies = [
 ]
 
 [project.scripts]
+_check-dbt-version-project-warning = "bills_hooks.check_dbt_project_version.hook:warn"
+check-dbt-project-version = "bills_hooks.check_dbt_project_version.hook:main"
 check-filename-pattern = "bills_hooks.check_filename_pattern.hook:main"
 check-no-commit-comment = "bills_hooks.check_no_commit_comment.hook:main"
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"

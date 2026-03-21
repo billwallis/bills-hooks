@@ -1,5 +1,19 @@
 # yaml-language-server: $schema=https://json.schemastore.org/pre-commit-hooks.json
 ---
+- id: check-dbt-project-version
+  name: Check dbt project version
+  description: >
+    Validate that the version specified in the `dbt_project.yml` file
+    matches the Python project version (specified in, say, `setup.cfg`
+    or `pyproject.toml` files).
+
+    Note that this should be run as a local hook, not as part of this repo's
+    hooks, as it needs the target repo to be installed so that it can parse
+    the project installation metadata (namely, the version).
+  entry: _check-dbt-project-version-warning
+  language: python
+  always_run: true
+  pass_filenames: false
 - id: check-filename-pattern
   name: Check filenames for pattern
   description: Validate that filenames follow the specified pattern.
