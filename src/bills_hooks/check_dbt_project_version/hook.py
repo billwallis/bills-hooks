@@ -35,13 +35,13 @@ def warn() -> int:
     CLI.
     """
 
-    current_version = _get_python_project_version("bills-hooks")
     print(
         textwrap.dedent(
             f"""\
             {RED}This hook must be used in a `local` repo.{RESET}
 
-            Add the following hook configuration for this hook instead:
+            Install the repo and add the following hook configuration for
+            this hook instead:
 
               - repo: local
                 hooks:
@@ -54,7 +54,6 @@ def warn() -> int:
                     language: unsupported
                     always_run: true
                     pass_filenames: false
-                    additional_dependencies: ["git+https://github.com/billwallis/bills-hooks@v{current_version}"]
             """
         )
     )

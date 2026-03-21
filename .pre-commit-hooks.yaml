@@ -7,9 +7,10 @@
     matches the Python project version (specified in, say, `setup.cfg`
     or `pyproject.toml` files).
 
-    Note that this should be run as a local hook, not as part of this repo's
-    hooks, as it needs the target repo to be installed so that it can parse
-    the project installation metadata (namely, the version).
+    Note that this should be run as a local hook of type `unsupported`,
+    not as part of this repo's hooks, as it needs the target repo to be
+    installed so that it can parse the project installation metadata
+    (namely, the version).
   entry: _check-dbt-project-version-warning
   language: python
   always_run: true

@@ -29,32 +29,9 @@ Add the following hooks to your `.pre-commit-config.yaml`:
     - id: check-no-commit-comment
     - id: gitmoji-conventional-commit # warning: still in development
     - id: tidy-gitkeep
-
-- repo: local
-  hooks:
-    - id: check-dbt-project-version
-      name: Check dbt project version
-      entry: >
-        check-dbt-project-version
-        --dbt-project-dir '<dbt_project.yml directory>'
-        --python-project-name '<target repo name>'
-      language: unsupported
-      always_run: true
-      pass_filenames: false
-      additional_dependencies: ["git+https://github.com/billwallis/bills-hooks@v0.0.10"]
 ```
 
 ## Available Hooks
-
-### `check-dbt-project-version` ([source](src/bills_hooks/check_dbt_project_version/hook.py))
-
-> [!WARNING]
->
-> Unlike normal hooks, this should be configured via a `local` repo. This is because this hook requires the repository under test to be installed, which is not supported in normal hooks.
-
-This hook checks that the dbt project version specified in the `dbt_project.yml` file matches the corresponding Python project's version (defined in, for example, `pyproject.toml` or `setup.cfg`).
-
-This isn't that helpful for typical dbt projects, but is helpful for dbt packages as it keeps the Python project and dbt project aligned.
 
 ### `check-filename-pattern` ([source](src/bills_hooks/check_filename_pattern/hook.py))
 
