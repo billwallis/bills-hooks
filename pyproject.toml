@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-_check-dbt-version-project-warning = "bills_hooks.check_dbt_project_version.hook:warn"
+_check-dbt-project-version-warning = "bills_hooks.check_dbt_project_version.hook:warn"
 check-dbt-project-version = "bills_hooks.check_dbt_project_version.hook:main"
 check-filename-pattern = "bills_hooks.check_filename_pattern.hook:main"
 check-no-commit-comment = "bills_hooks.check_no_commit_comment.hook:main"
