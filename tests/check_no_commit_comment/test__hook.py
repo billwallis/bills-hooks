@@ -7,16 +7,25 @@ from bills_hooks.check_no_commit_comment import hook
 
 
 @pytest.mark.parametrize(
-    "code, expected_outcome",
+    "filename, code, expected_outcome",
     [
-        # No matches
-        ("", False),
-        ("\0", False),
-        ("def garbage:", False),
-        ("""def foo(): return 0""", False),
-        ("""import NO_COMMIT""", False),
-        ("""NO_COMMIT = 'NO_COMMIT'""", False),
+        # No matches (default)
+        ("f.txt", "", False),
+        ("f.txt", "\0", False),
+        ("f.txt", "foo bar\nbaz", False),
+        ("f.txt", "foo  # no_commit", False),
+        # Matches (default)
+        ("f.txt", """NO_COMMIT""", True),
+        ("f.txt", """Please NO_COMMIT this file""", True),
+        # No matches (Python)
+        ("f.py", "", False),
+        ("f.py", "\0", False),
+        ("f.py", "def garbage:", False),
+        ("f.py", """def foo(): return 0""", False),
+        ("f.py", """import NO_COMMIT""", False),
+        ("f.py", """NO_COMMIT = 'NO_COMMIT'""", False),
         (
+            "f.py",
             textwrap.dedent(
                 """
                 def foo():
@@ -27,12 +36,13 @@ from bills_hooks.check_no_commit_comment import hook
             ),
             False,
         ),
-        # Matches
-        ("""# NO_COMMIT""", True),
-        ("""def foo(): return 0  # NO_COMMIT""", True),
-        ("""import NO_COMMIT  # NO_COMMIT""", True),
-        ("""NO_COMMIT = 'NO_COMMIT'  # NO_COMMIT""", True),
+        # Matches (Python)
+        ("f.py", """# NO_COMMIT""", True),
+        ("f.py", """def foo(): return 0  # NO_COMMIT""", True),
+        ("f.py", """import NO_COMMIT  # NO_COMMIT""", True),
+        ("f.py", """NO_COMMIT = 'NO_COMMIT'  # NO_COMMIT""", True),
         (
+            "f.py",
             textwrap.dedent(
                 """
                 def foo():
@@ -48,10 +58,11 @@ from bills_hooks.check_no_commit_comment import hook
 )
 def test__has_no_commit_comment(
     tmp_path: pathlib.Path,
+    filename: str,
     code: str,
     expected_outcome: bool,
 ):
-    tmp_file = tmp_path / "f.py"
+    tmp_file = tmp_path / filename
     tmp_file.write_text(code)
 
     assert hook.main([str(tmp_file)]) == expected_outcome

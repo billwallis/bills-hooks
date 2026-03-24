@@ -51,9 +51,9 @@ hooks:
 
 ### `check-no-commit-comment` ([source](src/bills_hooks/check_filename_pattern/hook.py))
 
-This hook checks files for comments including the text `NO_COMMIT`.
+This hook checks files for the text `NO_COMMIT`.
 
-Currently, this only supports Python files.
+In Python files, it only checks the comments. For all other files, it checks the entire content.
 
 Inspired by:
 
