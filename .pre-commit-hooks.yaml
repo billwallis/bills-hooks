@@ -23,14 +23,16 @@
 - id: check-no-commit-comment
   name: Check for `NO_COMMIT` comments
   description: >
-    Validate that files don't have any `NO_COMMIT` comments (Python only).
+    Validate that files don't have `NO_COMMIT` text.
+
+    In Python files, it only checks the comments. For all other files, it
+    checks the entire content.
 
     Inspired by:
 
     - https://github.com/elementary-data/elementary/blob/ef5043811a72009126391a3f0c8a18f72ae00b18/.pre-commit-config.yaml
   entry: check-no-commit-comment
   language: python
-  types: ["python"]
 - id: gitmoji-conventional-commit
   name: Gitmoji conventional commit message
   description: >

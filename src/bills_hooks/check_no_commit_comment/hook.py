@@ -14,6 +14,8 @@ import io
 import tokenize
 from collections.abc import Sequence
 
+import identify.identify
+
 # Return values
 SUCCESS = 0
 FAILURE = 1
@@ -37,6 +39,22 @@ def _has_no_commit_comment(content: str) -> bool:
     return False
 
 
+def _check_no_commit_comment__python(content: str) -> int:
+    if not _is_parseable(content):
+        # If we can't parse it, we don't know if it has the comment, so
+        # we can't correctly fail
+        return SUCCESS
+    if _has_no_commit_comment(content):
+        return FAILURE
+    return SUCCESS
+
+
+def _check_no_commit_comment__default(content: str) -> int:
+    if NO_COMMIT in content:
+        return FAILURE
+    return SUCCESS
+
+
 def _check_no_commit_comment(filename: str) -> int:
     """
     Check for presence of `NO_COMMIT` comments.
@@ -45,13 +63,11 @@ def _check_no_commit_comment(filename: str) -> int:
     with open(filename) as f:
         content = f.read()
 
-    if not _is_parseable(content):
-        # If we can't parse it, we don't know if it has the comment, so
-        # we can't correctly fail
-        return SUCCESS
-    if _has_no_commit_comment(content):
-        return FAILURE
-    return SUCCESS
+    tags = identify.identify.tags_from_filename(filename)
+    if "python" in tags:
+        return _check_no_commit_comment__python(content)
+    else:
+        return _check_no_commit_comment__default(content)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
