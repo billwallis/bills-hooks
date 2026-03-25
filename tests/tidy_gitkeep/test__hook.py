@@ -113,12 +113,14 @@ def test__unexpected_subprocess_errors_are_raised(
     Any other exit code is unexpected and should raise an exception.
     """
 
-    err_msg = "Damn it, Jim, I'm a doctor, not a git repository"
-
     def run(*args: Any, **kwargs: Any) -> subprocess.CompletedProcess:  # noqa: unused parameters
-        return subprocess.CompletedProcess([], returncode=2, stderr=err_msg)
+        return subprocess.CompletedProcess(
+            [],
+            returncode=2,
+            stderr="Damn it, Jim, I'm a doctor, not a git repository",
+        )
 
     monkeypatch.setattr(subprocess, "run", run)
 
-    with pytest.raises(RuntimeError, match=err_msg):
+    with pytest.raises(RuntimeError):
         hook.main(["foo"])

@@ -29,7 +29,20 @@ from bills_hooks.banned_python_code import hook
 
                 def test__foo():
                     with raises(ZeroDivisionError, match="err"):
-                        assert 1 / 0
+                        print(1 / 0)
+                """
+            ),
+            False,
+        ),
+        (
+            # TODO (enhancement): Handle this case
+            textwrap.dedent(
+                """\
+                from pytest import raises as pytest_raises
+
+                def test__foo():
+                    with pytest_raises(ZeroDivisionError, match="err"):
+                        print(1 / 0)
                 """
             ),
             False,
@@ -42,7 +55,7 @@ from bills_hooks.banned_python_code import hook
 
                 def test__foo():
                     with pytest.raises(ZeroDivisionError, match="err"):
-                        assert 1 / 0
+                        print(1 / 0)
                 """
             ),
             True,
