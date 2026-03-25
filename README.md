@@ -22,7 +22,7 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/billwallis/bills-hooks
-  rev: v0.0.10
+  rev: v0.0.13
   hooks:
     - id: check-filename-pattern
       args: ["--regex", "<some-regex-pattern>"]
@@ -32,6 +32,14 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 ```
 
 ## Available Hooks
+
+### `banned-python-code` ([source](src/bills_hooks/banned_python_code/hook.py))
+
+Checks for "banned" Python code:
+
+- `pytest.raises` calls with `match` ([inspiration](https://youtu.be/-1LXV_laNMs))
+
+Maybe this will evolve into a formal linter rules (e.g. a flake8 plugin) :shrug:
 
 ### `check-filename-pattern` ([source](src/bills_hooks/check_filename_pattern/hook.py))
 
