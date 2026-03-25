@@ -14,9 +14,14 @@ from bills_hooks.check_no_commit_comment import hook
         ("f.txt", "\0", False),
         ("f.txt", "foo bar\nbaz", False),
         ("f.txt", "foo  # no_commit", False),
+        ("f.xml", "<note><heading>no_commit</heading></note>", False),
+        ("f.svg", "<svg ...>no_commit</svg>", False),
+        ("f.png", f"{0x89}NO_COMMIT", False),
         # Matches (default)
         ("f.txt", """NO_COMMIT""", True),
         ("f.txt", """Please NO_COMMIT this file""", True),
+        ("f.xml", "<note><heading>NO_COMMIT</heading></note>", True),
+        ("f.svg", "<svg ...>NO_COMMIT</svg>", True),
         # No matches (Python)
         ("f.py", "", False),
         ("f.py", "\0", False),

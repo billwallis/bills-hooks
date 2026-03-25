@@ -60,10 +60,13 @@ def _check_no_commit_comment(filename: str) -> int:
     Check for presence of `NO_COMMIT` comments.
     """
 
+    tags = identify.identify.tags_from_filename(filename)
+    if "text" not in tags:
+        return SUCCESS
+
     with open(filename) as f:
         content = f.read()
 
-    tags = identify.identify.tags_from_filename(filename)
     if "python" in tags:
         return _check_no_commit_comment__python(content)
     else:

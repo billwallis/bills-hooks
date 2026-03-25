@@ -6,7 +6,7 @@ build-backend = "uv_build"
 
 [project]
 name = "bills-hooks"
-version = "0.0.11"
+version = "0.0.12"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
