@@ -24,10 +24,11 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 - repo: https://github.com/billwallis/bills-hooks
   rev: v0.0.13
   hooks:
+    - id: banned-python-code
     - id: check-filename-pattern
       args: ["--regex", "<some-regex-pattern>"]
     - id: check-no-commit-comment
-    - id: gitmoji-conventional-commit # warning: still in development
+    - id: gitmoji-conventional-commit  # warning: still in development
     - id: tidy-gitkeep
 ```
 
