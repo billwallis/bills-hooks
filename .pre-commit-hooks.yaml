@@ -5,7 +5,7 @@
   description: Validate that Python files do not include "banned" code.
   entry: banned-python-code
   language: python
-  files: ["python"]
+  types: ["python"]
 - id: check-dbt-project-version
   name: Check dbt project version
   description: >
