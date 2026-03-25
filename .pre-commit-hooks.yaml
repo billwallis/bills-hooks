@@ -1,5 +1,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/pre-commit-hooks.json
 ---
+- id: banned-python-code
+  name: Check for banned Python code
+  description: Validate that Python files do not include "banned" code.
+  entry: banned-python-code
+  language: python
+  files: ["python"]
 - id: check-dbt-project-version
   name: Check dbt project version
   description: >

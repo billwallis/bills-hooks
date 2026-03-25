@@ -2,7 +2,7 @@
 ---
 ci:
   autoupdate_schedule: quarterly
-  skip: ["identity", "uv-lock", "ty", "pytest", "coverage-badge"]
+  skip: ["identity", "uv-lock", "pytest", "coverage-badge"]
 
 default_install_hook_types: ["pre-commit", "pre-push"]
 default_stages: ["pre-commit"]
@@ -59,16 +59,11 @@ repos:
       - id: ruff-format
         name: Format Python code
 
-  # https://github.com/astral-sh/ty?tab=readme-ov-file#getting-started
-  - repo: local
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.37.0
     hooks:
-      - id: ty
-        name: Run type checks
-        entry: uvx ty check
-        language: system
-        pass_filenames: true
-        always_run: false
-        types: ["python"]
+      - id: check-github-workflows
+      - id: check-compose-spec
 
   - repo: https://github.com/billwallis/bills-hooks
     rev: v0.0.8
@@ -76,12 +71,6 @@ repos:
       - id: tidy-gitkeep
         name: Remove redundant .gitkeep files
         exclude: ^tests/tidy_gitkeep/fixtures/.*$
-
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.37.0
-    hooks:
-      - id: check-github-workflows
-      - id: check-compose-spec
 
   - repo: local
     hooks:

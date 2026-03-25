@@ -6,7 +6,7 @@ build-backend = "uv_build"
 
 [project]
 name = "bills-hooks"
-version = "0.0.12"
+version = "0.0.13"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
@@ -17,6 +17,7 @@ dependencies = [
 ]
 
 [project.scripts]
+banned-python-code = "bills_hooks.banned_python_code.hook:main"
 _check-dbt-project-version-warning = "bills_hooks.check_dbt_project_version.hook:warn"
 check-dbt-project-version = "bills_hooks.check_dbt_project_version.hook:main"
 check-filename-pattern = "bills_hooks.check_filename_pattern.hook:main"
@@ -26,6 +27,7 @@ tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
 
 [dependency-groups]
 dev = [
+    "astpretty>=3.0.0",
     "poethepoet>=0.42.1",
     "pre-commit>=4.5.1",
 ]
