@@ -64,7 +64,7 @@ repos:
           entry: check-jsonschema
           pass_filenames: true
           language: python
-          additional_dependencies: ["check-jsonschema==0.37.0"]
+          additional_dependencies: ["check-jsonschema==0.37.1"]
           # This calls a remote URL, so run on pre-push to avoid slowing down commits
           stages: ["pre-push"]
         id: check-pyproject-schema
