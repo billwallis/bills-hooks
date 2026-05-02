@@ -17,6 +17,7 @@ from bills_hooks.check_no_commit_comment import hook
         ("f.xml", "<note><heading>no_commit</heading></note>", False),
         ("f.svg", "<svg ...>no_commit</svg>", False),
         ("f.png", f"{0x89}NO_COMMIT", False),
+        ("f.yaml", "foo: 🤓  # no_commit", False),
         # Matches (default)
         ("f.txt", """NO_COMMIT""", True),
         ("f.txt", """Please NO_COMMIT this file""", True),
@@ -68,6 +69,6 @@ def test__has_no_commit_comment(
     expected_outcome: bool,
 ):
     tmp_file = tmp_path / filename
-    tmp_file.write_text(code)
+    tmp_file.write_text(code, encoding="utf-8")
 
     assert hook.main([str(tmp_file)]) == expected_outcome

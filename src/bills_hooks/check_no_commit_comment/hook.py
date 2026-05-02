@@ -64,7 +64,7 @@ def _check_no_commit_comment(filename: str) -> int:
     if "text" not in tags:
         return SUCCESS
 
-    with open(filename) as f:
+    with open(filename, encoding="utf-8") as f:
         content = f.read()
 
     if "python" in tags:
