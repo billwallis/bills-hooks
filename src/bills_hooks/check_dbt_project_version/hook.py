@@ -16,7 +16,7 @@ RESET = "\033[0m"
 
 
 def _get_dbt_project_version(dbt_project_dir: pathlib.Path) -> str | None:
-    with open(dbt_project_dir / "dbt_project.yml") as f:
+    with open(dbt_project_dir / "dbt_project.yml", encoding="utf-8") as f:
         content = yaml.safe_load(f)
 
     return content.get("version")

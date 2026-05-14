@@ -27,7 +27,7 @@ def check_banned_python_code(filename: str, args: argparse.Namespace) -> int:
     Check for "banned" Python code.
     """
 
-    with open(filename) as f:
+    with open(filename, encoding="utf-8") as f:
         content = f.read()
 
     try:
