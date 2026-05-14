@@ -10,6 +10,7 @@ version = "0.0.14"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
+license-files = ["LICENSE"]
 requires-python = ">=3.12"
 dependencies = [
     "identify>=2.6.16",
@@ -81,8 +82,13 @@ shell = """
 [tool.pytest.ini_options]
 # `basetemp` is relative to the working directory, so make sure you run
 # pytest from the root of the project.
-addopts = "--cov=src --cov-fail-under=100 --basetemp=tests-temp/"
+addopts = "--cov=src --basetemp=tests-temp/"
 testpaths = ["tests"]
+
+[tool.coverage]
+run.branch = true
+report.fail_under = 100
+report.show_missing = true
 
 
 [tool.ruff]
