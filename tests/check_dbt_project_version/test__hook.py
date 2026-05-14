@@ -40,8 +40,8 @@ def test__hook_fails_when_versions_do_not_match(
     tmp_path: pathlib.Path,
     monkeypatch: pytest.MonkeyPatch,
 ):
-    with open(tmp_path / "dbt_project.yml", "w+") as f:
-        f.write("version: 1.2.3")
+    with open(tmp_path / "dbt_project.yml", "w+", encoding="utf-8") as f:
+        f.write("version: 1.2.3  # 🤓")
     monkeypatch.setattr(importlib.metadata, "version", lambda _: "0.0.0")
 
     ret = hook.main(

@@ -12,6 +12,7 @@ from bills_hooks.banned_python_code import hook
         # No matches
         ("", False),
         ("\0", False),
+        ("🤓", False),
         (
             textwrap.dedent(
                 """\
@@ -68,6 +69,6 @@ def test__has_no_commit_comment(
     expected_outcome: bool,
 ):
     tmp_file = tmp_path / "f.py"
-    tmp_file.write_text(code)
+    tmp_file.write_text(code, encoding="utf-8")
 
     assert hook.main([str(tmp_file)]) == expected_outcome

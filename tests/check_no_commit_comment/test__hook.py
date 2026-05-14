@@ -30,6 +30,7 @@ from bills_hooks.check_no_commit_comment import hook
         ("f.py", """def foo(): return 0""", False),
         ("f.py", """import NO_COMMIT""", False),
         ("f.py", """NO_COMMIT = 'NO_COMMIT'""", False),
+        ("f.py", """# This no_commit is fine""", False),
         (
             "f.py",
             textwrap.dedent(
