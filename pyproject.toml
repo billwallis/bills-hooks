@@ -33,6 +33,7 @@ dev = [
     "pre-commit>=4.5.1",
 ]
 test = [
+    "covdefaults>=2.3.0",
     "pytest>=9.0.3",
     "pytest-cov>=7.0.0",
 ]
@@ -82,13 +83,18 @@ shell = """
 [tool.pytest.ini_options]
 # `basetemp` is relative to the working directory, so make sure you run
 # pytest from the root of the project.
-addopts = "--cov=src --basetemp=tests-temp/"
+addopts = "--cov --basetemp=tests-temp/"
 testpaths = ["tests"]
 
 [tool.coverage]
 run.branch = true
+run.plugins = ["covdefaults"]  # https://youtu.be/70T6OxKwxm0
 report.fail_under = 100
 report.show_missing = true
+report.exclude_lines = [
+    "@pytest.mark.skip",
+    "@pytest.mark.xfail",
+]
 
 
 [tool.ruff]
