@@ -96,6 +96,6 @@ uvx --from 'git+https://github.com/billwallis/bills-hooks' tidy-gitkeep .
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and then install the dependencies:
 
-```bash
+```shell
 uvx --from poethepoet poe install
 ```
