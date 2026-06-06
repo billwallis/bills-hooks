@@ -30,29 +30,38 @@ def _is_parseable(content: str) -> bool:
         return False
 
 
-def _has_no_commit_comment(content: str) -> bool:
+def _print_found(filename: str, line_no: int, line: str) -> None:
+    print(f"{filename}:{line_no}: {line}")
+
+
+def _has_no_commit_comment(filename: str, content: str) -> bool:
+    has_no_commit_comment = False
     tokens = tokenize.tokenize(io.BytesIO(content.encode()).readline)
     for token in tokens:
         if token.type == tokenize.COMMENT:
             if NO_COMMIT in token.string:
-                return True
-    return False
+                has_no_commit_comment = True
+                _print_found(filename, token.start[0], token.line.rstrip("\n"))
+    return has_no_commit_comment
 
 
-def _check_no_commit_comment__python(content: str) -> int:
+def _check_no_commit_comment__python(filename: str, content: str) -> int:
     if not _is_parseable(content):
         # If we can't parse it, we don't know if it has the comment, so
         # we can't correctly fail
         return SUCCESS
-    if _has_no_commit_comment(content):
+    if _has_no_commit_comment(filename, content):
         return FAILURE
     return SUCCESS
 
 
-def _check_no_commit_comment__default(content: str) -> int:
-    if NO_COMMIT in content:
-        return FAILURE
-    return SUCCESS
+def _check_no_commit_comment__default(filename: str, content: str) -> int:
+    ret = SUCCESS
+    for line_no, line in enumerate(content.split("\n"), start=1):
+        if NO_COMMIT in line:
+            ret = FAILURE
+            _print_found(filename, line_no, line)
+    return ret
 
 
 def _check_no_commit_comment(filename: str) -> int:
@@ -68,9 +77,9 @@ def _check_no_commit_comment(filename: str) -> int:
         content = f.read()
 
     if "python" in tags:
-        return _check_no_commit_comment__python(content)
+        return _check_no_commit_comment__python(filename, content)
     else:
-        return _check_no_commit_comment__default(content)
+        return _check_no_commit_comment__default(filename, content)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
