@@ -18,13 +18,13 @@ dependencies = [
 ]
 
 [project.scripts]
-banned-python-code = "bills_hooks.banned_python_code.hook:main"
-_check-dbt-project-version-warning = "bills_hooks.check_dbt_project_version.hook:warn"
-check-dbt-project-version = "bills_hooks.check_dbt_project_version.hook:main"
-check-filename-pattern = "bills_hooks.check_filename_pattern.hook:main"
-check-no-commit-comment = "bills_hooks.check_no_commit_comment.hook:main"
+banned-python-code = "bills_hooks.banned_python_code:main"
+_check-dbt-project-version-warning = "bills_hooks.check_dbt_project_version:warn"
+check-dbt-project-version = "bills_hooks.check_dbt_project_version:main"
+check-filename-pattern = "bills_hooks.check_filename_pattern:main"
+check-no-commit-comment = "bills_hooks.check_no_commit_comment:main"
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
-tidy-gitkeep = "bills_hooks.tidy_gitkeep.hook:main"
+tidy-gitkeep = "bills_hooks.tidy_gitkeep:main"
 
 [dependency-groups]
 dev = [

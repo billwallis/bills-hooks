@@ -3,7 +3,7 @@ import textwrap
 
 import pytest
 
-from bills_hooks.banned_python_code import hook
+from bills_hooks import banned_python_code
 
 
 @pytest.mark.parametrize(
@@ -71,4 +71,4 @@ def test__has_no_commit_comment(
     tmp_file = tmp_path / "f.py"
     tmp_file.write_text(code, encoding="utf-8")
 
-    assert hook.main([str(tmp_file)]) == expected_outcome
+    assert banned_python_code.main([str(tmp_file)]) == expected_outcome
