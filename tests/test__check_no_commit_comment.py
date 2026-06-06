@@ -3,7 +3,7 @@ import textwrap
 
 import pytest
 
-from bills_hooks.check_no_commit_comment import hook
+from bills_hooks import check_no_commit_comment
 
 
 @pytest.mark.parametrize(
@@ -72,4 +72,4 @@ def test__has_no_commit_comment(
     tmp_file = tmp_path / filename
     tmp_file.write_text(code, encoding="utf-8")
 
-    assert hook.main([str(tmp_file)]) == expected_outcome
+    assert check_no_commit_comment.main([str(tmp_file)]) == expected_outcome

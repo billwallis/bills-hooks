@@ -12,12 +12,10 @@ import urllib.request
 import yaml
 
 from bills_hooks import SOURCE_ROOT
-from bills_hooks._logging.logger import setup_logging
+
+logger = logging.getLogger("bills-hooks")
 
 GITMOJIS_URL = "https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/gitmojis/src/gitmojis.json"
-
-setup_logging()
-logger = logging.getLogger("bills-hooks")
 
 
 def collect_gitmoji() -> None:

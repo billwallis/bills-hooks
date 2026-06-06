@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 
 import bills_hooks
-from bills_hooks.tidy_gitkeep import hook
+from bills_hooks import tidy_gitkeep
 
 FIXTURE_TEMPLATE_DIR = (
     bills_hooks.PROJECT_ROOT / "tests/tidy_gitkeep/fixtures/template"
@@ -55,9 +55,9 @@ def test__redundant_files_are_removed(working_dir: pathlib.Path):
         str(working_dir / "subdir-3/subdir-4/.gitkeep"),
     ]
 
-    rc = hook.main([*kept_gitkeep_files, *removed_gitkeep_files])
+    rc = tidy_gitkeep.main([*kept_gitkeep_files, *removed_gitkeep_files])
 
-    assert rc == hook.SUCCESS
+    assert rc == tidy_gitkeep.SUCCESS
     for file in [*other_files, *kept_gitkeep_files]:
         assert pathlib.Path(file).exists()
     for file in removed_gitkeep_files:
@@ -90,9 +90,9 @@ def test__redundant_files_are_removed_using_dot_expression(
     ]
 
     monkeypatch.chdir(working_dir)
-    rc = hook.main(["."])
+    rc = tidy_gitkeep.main(["."])
 
-    assert rc == hook.SUCCESS
+    assert rc == tidy_gitkeep.SUCCESS
     for file in [*other_files, *kept_gitkeep_files]:
         assert pathlib.Path(file).exists()
     for file in removed_gitkeep_files:
@@ -123,4 +123,4 @@ def test__unexpected_subprocess_errors_are_raised(
     monkeypatch.setattr(subprocess, "run", run)
 
     with pytest.raises(RuntimeError):
-        hook.main(["foo"])
+        tidy_gitkeep.main(["foo"])

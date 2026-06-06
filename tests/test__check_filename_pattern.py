@@ -1,6 +1,6 @@
 import pytest
 
-from bills_hooks.check_filename_pattern import hook
+from bills_hooks import check_filename_pattern
 
 
 def test__hook_can_be_run_without_arguments():
@@ -8,7 +8,7 @@ def test__hook_can_be_run_without_arguments():
     The hook is a no-op when run on files without arguments.
     """
 
-    assert hook.main(["foo", "bar"]) == 0
+    assert check_filename_pattern.main(["foo", "bar"]) == 0
 
 
 @pytest.mark.parametrize(
@@ -31,7 +31,10 @@ def test__regex_patterns_can_be_matched(
     Regex patterns can be matched.
     """
 
-    assert hook.main([*filenames, "--regex", regex]) == expected_outcome
+    assert (
+        check_filename_pattern.main([*filenames, "--regex", regex])
+        == expected_outcome
+    )
 
 
 @pytest.mark.parametrize(
@@ -73,5 +76,6 @@ def test__regex_patterns_can_be_matched_by_name_only(
     """
 
     assert (
-        hook.main([*filenames, "--regex", regex, name_only]) == expected_outcome
+        check_filename_pattern.main([*filenames, "--regex", regex, name_only])
+        == expected_outcome
     )
