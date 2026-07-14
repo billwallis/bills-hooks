@@ -22,7 +22,7 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/billwallis/bills-hooks
-  rev: v0.0.15
+  rev: v0.0.16
   hooks:
     - id: banned-python-code
     - id: check-filename-pattern

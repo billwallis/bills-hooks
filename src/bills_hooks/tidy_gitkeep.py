@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import pathlib
+import shlex
 import subprocess
 from collections.abc import Sequence
 
@@ -25,9 +26,11 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
     https://git-scm.com/docs/git-check-ignore
     """
 
+    cmd = f"git check-ignore '{file}' --quiet"
     completed_process = subprocess.run(  # noqa: S603
-        f"git check-ignore {file} --quiet".split(" "),
+        shlex.split(cmd),
         check=False,
+        capture_output=True,
     )
 
     if completed_process.returncode == SUCCESS:
@@ -35,7 +38,8 @@ def _is_file_ignored(file: pathlib.Path) -> bool:
     if completed_process.returncode == FAILURE:
         return False
 
-    raise RuntimeError(completed_process.stderr)
+    msg = completed_process.stderr.decode(encoding="utf-8")
+    raise RuntimeError(msg)
 
 
 def _remove_redundant_gitkeep_file(gitkeep_file: pathlib.Path) -> None:
