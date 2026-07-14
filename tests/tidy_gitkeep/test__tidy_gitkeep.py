@@ -117,7 +117,7 @@ def test__unexpected_subprocess_errors_are_raised(
         return subprocess.CompletedProcess(
             [],
             returncode=2,
-            stderr="Damn it, Jim, I'm a doctor, not a git repository",
+            stderr=b"Damn it, Jim, I'm a doctor, not a git repository",
         )
 
     monkeypatch.setattr(subprocess, "run", run)
