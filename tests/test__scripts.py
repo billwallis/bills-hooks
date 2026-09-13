@@ -33,7 +33,7 @@ def test__check_dbt_project_version_warning():
     rc, out, err = run("_check-dbt-project-version-warning --help")
     assert rc == 1
     # TODO: Shouldn't this be in stderr?
-    assert out == textwrap.dedent(
+    assert out.replace("\r\n", "\n") == textwrap.dedent(
         """\
         \x1b[1;31mThis hook must be used in a `local` repo.\x1b[0m
 
