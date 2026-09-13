@@ -1,7 +1,6 @@
 <span align="center">
 
 [![Python](https://img.shields.io/badge/Python-3.12+-blue.svg)](https://www.python.org/downloads/)
-[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![tests](https://github.com/billwallis/bills-hooks/actions/workflows/tests.yaml/badge.svg)](https://github.com/billwallis/bills-hooks/actions/workflows/tests.yaml)
 [![coverage](https://raw.githubusercontent.com/billwallis/bills-hooks/refs/heads/main/coverage.svg)](https://smarie.github.io/python-genbadge/)
 
@@ -34,7 +33,7 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ## Available Hooks
 
-### `banned-python-code` ([source](src/bills_hooks/banned_python_code/hook.py))
+### `banned-python-code` ([source](src/bills_hooks/banned_python_code.py))
 
 Checks for "banned" Python code:
 
@@ -42,7 +41,7 @@ Checks for "banned" Python code:
 
 Maybe this will evolve into a formal linter rules (e.g. a flake8 plugin) :shrug:
 
-### `check-filename-pattern` ([source](src/bills_hooks/check_filename_pattern/hook.py))
+### `check-filename-pattern` ([source](src/bills_hooks/check_filename_pattern.py))
 
 This hook checks filenames against a given pattern.
 
@@ -58,7 +57,7 @@ hooks:
     args: ["--name-only", "--regex", '^test_.*\.py$']
 ```
 
-### `check-no-commit-comment` ([source](src/bills_hooks/check_filename_pattern/hook.py))
+### `check-no-commit-comment` ([source](src/bills_hooks/check_filename_pattern.py))
 
 This hook checks files for the text `NO_COMMIT` (case-sensitive).
 
@@ -80,7 +79,7 @@ Inspired by:
 
 - https://github.com/compilerla/conventional-pre-commit
 
-### `tidy-gitkeep` ([source](src/bills_hooks/tidy_gitkeep/hook.py))
+### `tidy-gitkeep` ([source](src/bills_hooks/tidy_gitkeep.py))
 
 This hook removes redundant `.gitkeep` files from your repository.
 
