@@ -89,13 +89,15 @@ A `.gitkeep` file is redundant if the directory it is in has any other files tha
 This can also be run as a CLI:
 
 ```shell
+# using pipx
+pipx run --spec git+https://github.com/billwallis/bills-hooks tidy-gitkeep .
+# using uv
 uvx --from 'git+https://github.com/billwallis/bills-hooks' tidy-gitkeep .
 ```
 
-## Contributing
-
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) and then install the dependencies:
+Install the dependencies:
 
 ```shell
-uvx --from poethepoet poe install
+pip install --editable . --group dev --group test
+pre-commit install --install-hooks
 ```
