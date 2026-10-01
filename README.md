@@ -94,6 +94,8 @@ pipx run --spec git+https://github.com/billwallis/bills-hooks tidy-gitkeep .
 uvx --from 'git+https://github.com/billwallis/bills-hooks' tidy-gitkeep .
 ```
 
+## Contributing
+
 Install the dependencies:
 
 ```shell
