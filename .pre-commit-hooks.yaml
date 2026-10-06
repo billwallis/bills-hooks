@@ -26,6 +26,22 @@
   description: Validate that filenames follow the specified pattern.
   entry: check-filename-pattern
   language: python
+- id: check-github-codeowners
+  name: Check GitHub CODEOWNERS file is valid
+  description: >
+    Validate that the paths listed in the CODEOWNERS file is valid.
+
+    This does not check that the team is valid as that cannot be done
+    statically.
+  entry: check-github-codeowners
+  language: python
+  # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-file-location
+  files: |
+    (?x)^(
+        CODEOWNERS|
+        .github/CODEOWNERS|
+        docs/CODEOWNERS
+    )$
 - id: check-no-commit-comment
   name: Check for `NO_COMMIT` comments
   description: >

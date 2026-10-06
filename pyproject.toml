@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bills-hooks"
-version = "0.0.16"
+version = "0.0.17"
 description = "Pre-commit hooks for my own projects."
 authors = [{name = "billwallis"}]
 readme = "README.md"
@@ -21,6 +21,7 @@ banned-python-code = "bills_hooks.banned_python_code:main"
 _check-dbt-project-version-warning = "bills_hooks.check_dbt_project_version:warn"
 check-dbt-project-version = "bills_hooks.check_dbt_project_version:main"
 check-filename-pattern = "bills_hooks.check_filename_pattern:main"
+check-github-codeowners = "bills_hooks.check_github_codeowners:main"
 check-no-commit-comment = "bills_hooks.check_no_commit_comment:main"
 gitmoji-conventional-commit = "bills_hooks.gitmoji_conventional_commit.hook:main"
 tidy-gitkeep = "bills_hooks.tidy_gitkeep:main"
