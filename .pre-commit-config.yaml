@@ -21,6 +21,7 @@ repos:
       - id: end-of-file-fixer
         exclude: "coverage.svg"
       - id: mixed-line-ending
+        args: ["--fix", "lf"]
       - id: check-added-large-files
       - id: check-json
       - id: check-yaml
