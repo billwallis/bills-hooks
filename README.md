@@ -21,11 +21,12 @@ Add the following hooks to your `.pre-commit-config.yaml`:
 
 ```yaml
 - repo: https://github.com/billwallis/bills-hooks
-  rev: v0.0.16
+  rev: v0.0.17
   hooks:
     - id: banned-python-code
     - id: check-filename-pattern
       args: ["--regex", "<some-regex-pattern>"]
+    - id: check-github-codeowners
     - id: check-no-commit-comment
     - id: gitmoji-conventional-commit  # warning: still in development
     - id: tidy-gitkeep
@@ -56,6 +57,14 @@ hooks:
     exclude: '^.*/(conftest\.py|__init__\.py)$'
     args: ["--name-only", "--regex", '^test_.*\.py$']
 ```
+
+### `check-github-codeowners` ([source](src/bills_hooks/check_github_codeowners.py))
+
+This hook statically checks the GitHub CODEOWNERS files.
+
+This validates that the path patterns reference files and directories which exist, and that the owners start with an `@` sign.
+
+This **does not** validate that the owners exist or have write-access to the repository as this is a static analysis only.
 
 ### `check-no-commit-comment` ([source](src/bills_hooks/check_filename_pattern.py))
 
